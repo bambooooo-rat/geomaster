@@ -53,20 +53,37 @@ function renderPage(slug, data) {
     ];
 
     // 清空並重新渲染徽章
-    if (badgesContainer) {
-        badgesContainer.innerHTML = '';
+    if (data.metadata) {
         headerFields.forEach(field => {
-            if (data.metadata && data.metadata[field.key]) {
-                const meta = data.metadata[field.key];
-                let val = Array.isArray(meta.value) ? meta.value.join(", ") : meta.value;
+            const metaData = data.metadata[field.key];
+            if (metaData) {
+                let htmlValue = "";
                 
-                if (val && val !== "nothing") {
+                if (field.key === 'Currencies' && Array.isArray(metaData.value)) {
+                    const symbolsStr = metaData.value[0] || "";
+                    const codeStr = metaData.value[1] || "";
+                    const formattedSymbols = symbolsStr.replaceAll('-or-', ' <span class="currency-sep">/</span> ');
+                    const formattedCode = codeStr.toUpperCase();
+
+                    if (formattedSymbols || formattedCode) {
+                        htmlValue = `<span class="currency-display"><span class="currency-symbol">${formattedSymbols}</span>${formattedCode ? `<span class="currency-code">${formattedCode}</span>` : ''}</span>`;
+                    }
+                } 
+                else {
+                    let rawVal = Array.isArray(metaData.value) ? metaData.value.join(", ") : metaData.value;
+                    if (rawVal && rawVal !== "nothing") {
+                        if (field.key === 'Phonenumbers' || field.key === 'Domains') {
+                            htmlValue = `<span class="badge-code-style">${rawVal}</span>`;
+                        } else {
+                            htmlValue = `<span class="badge-plain-text">${rawVal}</span>`;
+                        }
+                    }
+                }
+
+                if (htmlValue) {
                     const badge = document.createElement('div');
                     badge.className = 'badge-item';
-                    badge.innerHTML = `
-                        <span class="badge-icon">${field.icon}</span>
-                        <span class="badge-value">${val}</span>
-                    `;
+                    badge.innerHTML = `<span class="badge-icon">${field.icon}</span><span class="badge-value">${htmlValue}</span>`;
                     badgesContainer.appendChild(badge);
                 }
             }
