@@ -4,7 +4,7 @@
 */
 @font-face {
     font-family: 'GeoGlobal-Sans';
-    src: url('static/fonts/NotoColorEmoji-Regular.ttf') format('truetype');
+    src: url('../fonts/NotoColorEmoji-Regular.ttf') format('truetype');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -30,7 +30,7 @@
 @font-face {
     font-family: 'GeoGlobal-Sans';
     /* 包含 Latin, Latin-1 Supplement, Latin Extended, Greek, Cyrillic */
-    src: url('static/fonts/NotoSans-VariableFont_wdth,wght.ttf') format('truetype');
+    src: url('../fonts/NotoSans-VariableFont_wdth,wght.ttf') format('truetype');
     font-weight: 100 900; /* 支援 Variable Font 的粗細範圍 */
     font-style: normal;
     font-display: swap;
@@ -55,7 +55,7 @@
 /* 2. Devanagari (印度天城體) */
 @font-face {
     font-family: 'GeoGlobal-Sans';
-    src: url('static/fonts/NotoSansDevanagari-VariableFont_wdth,wght.ttf') format('truetype');
+    src: url('../fonts/NotoSansDevanagari-VariableFont_wdth,wght.ttf') format('truetype');
     font-weight: 100 900;
     font-style: normal;
     font-display: swap;
@@ -66,7 +66,7 @@
 /* 3. CJK (中日韓 - 以繁體中文 Noto Sans TC 為主) */
 @font-face {
     font-family: 'GeoGlobal-Sans';
-    src: url('static/fonts/NotoSansTC-VariableFont_wght.ttf') format('truetype');
+    src: url('../fonts/NotoSansTC-VariableFont_wght.ttf') format('truetype');
     /* CJK Variable Font 通常只支援 100-900 weight，不支援 width */
     font-weight: 100 900;
     font-style: normal;
@@ -79,7 +79,7 @@
 /* 4. 等寬字型 (Monospace) */
 @font-face {
     font-family: 'GeoGlobal-Mono';
-    src: url('static/fonts/NotoSansMono-VariableFont_wdth,wght.ttf') format('truetype');
+    src: url('../fonts/NotoSansMono-VariableFont_wdth,wght.ttf') format('truetype');
     font-weight: 100 900;
     font-style: normal;
     font-display: swap;
