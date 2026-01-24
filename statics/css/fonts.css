@@ -1,0 +1,102 @@
+/* 策略說明：
+   我們將所有語系都定義為同一個 font-family 名稱 'GeoGlobal-Sans'。
+   瀏覽器會依照 unicode-range 自動決定該用哪個檔案來渲染文字。
+*/
+@font-face {
+    font-family: 'GeoGlobal-Sans';
+    src: url('/static/fonts/NotoColorEmoji-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    /* 定義 Emoji 與箭頭的 Unicode 範圍：
+       
+       U+2300-23FF: 技術符號 (Misc Technical) 如 ⌚ ⌛ ⌨️
+       
+       U+2600-26FF: 雜項符號 (Misc Symbols) 如 ☁️ ☂️ ☎️ ☛
+       U+2700-27BF: 裝飾符號 (Dingbats) 如 ✂️ ✅ ✈️
+       U+1F300-1F5FF: 雜項圖形與象形 (Misc Symbols and Pictographs) 
+       U+1F600-1F64F: 表情符號 (Emoticons)
+       U+1F680-1F6FF: 交通與地圖符號 (Transport & Map) 如 🚗 🛑 🛣️
+       U+1F900-1FAFF: 補充符號 (Supplemental Symbols)
+    */
+    unicode-range: 
+        U+2300-23FF,
+        U+2600-26FF, 
+        U+2700-27BF, 
+        U+1F000-1FAFF; 
+}
+
+/* 1. 基礎歐語系 (Latin, Cyrillic, Greek) */
+@font-face {
+    font-family: 'GeoGlobal-Sans';
+    /* 包含 Latin, Latin-1 Supplement, Latin Extended, Greek, Cyrillic */
+    src: url('/static/fonts/NotoSans-VariableFont_wdth,wght.ttf') format('truetype');
+    font-weight: 100 900; /* 支援 Variable Font 的粗細範圍 */
+    font-style: normal;
+    font-display: swap;
+    /* 範圍包含：英文、西歐、東歐、希臘文、西里爾字母(俄文等) */
+    unicode-range: 
+        U+2190-21FF, /* U+2190-21FF: 箭頭 (Arrows) 如 ← ↑ → ↓ ↗ */
+        U+25A0-25FF, /* U+25A0-25FF: 幾何圖形 (Geometric Shapes) 如 ▶ ◀ ■ ● */
+        U+0000-00FF, 
+        U+0100-017F, 
+        U+0180-024F, 
+        U+0370-03FF, 
+        U+0400-04FF, 
+        U+0500-052F, 
+        U+1F00-1FFF, 
+        U+2000-206F, 
+        U+2070-209F, 
+        U+20A0-20CF, 
+        U+2100-214F, 
+        U+2200-22FF;
+}
+
+/* 2. Devanagari (印度天城體) */
+@font-face {
+    font-family: 'GeoGlobal-Sans';
+    src: url('/static/fonts/NotoSansDevanagari-VariableFont_wdth,wght.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+    /* 範圍包含：Devanagari */
+    unicode-range: U+0900-097F, U+A8E0-A8FF;
+}
+
+/* 3. CJK (中日韓 - 以繁體中文 Noto Sans TC 為主) */
+@font-face {
+    font-family: 'GeoGlobal-Sans';
+    src: url('/static/fonts/NotoSansTC-VariableFont_wght.ttf') format('truetype');
+    /* CJK Variable Font 通常只支援 100-900 weight，不支援 width */
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+    /* 範圍包含：CJK 主要漢字區、標點符號、注音、日文假名等
+       (這會作為 fallback，當上面都沒有對應字元時使用) */
+    unicode-range: U+2E80-9FFF, U+3000-303F, U+3040-309F, U+30A0-30FF, U+FF00-FFEF, U+20000-2EBE0;
+}
+
+/* 4. 等寬字型 (Monospace) */
+@font-face {
+    font-family: 'GeoGlobal-Mono';
+    src: url('/static/fonts/NotoSansMono-VariableFont_wdth,wght.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* ======================================================
+   全域變數設定
+   ====================================================== */
+:root {
+    /* font-main: 
+       第一順位: 'GeoGlobal-Sans' (我們自定義的組合字型)
+       第二順位: 系統預設 sans-serif (安全網)
+    */
+    --font-main: 'GeoGlobal-Sans', "Microsoft JhengHei", "Segoe UI", Helvetica, Arial, sans-serif;
+    
+    /* font-mono:
+       第一順位: 'GeoGlobal-Mono'
+    */
+    --font-mono: 'GeoGlobal-Mono', "SF Mono", "Menlo", "Monaco", "Consolas", "Courier New", monospace;
+}

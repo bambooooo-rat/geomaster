@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country Profile - GeoGuessr Meta</title>
+    <link rel="stylesheet" href="/static/css/country.css">
+    <link rel="stylesheet" href="/static/css/fonts.css">
+</head>
+<body>
+
+    <div class="container">
+        <div id="loading">正在載入國家資料...</div>
+        
+        <div id="content-area">
+            
+            <!-- Row 1: Header Info -->
+            <div class="profile-header-card">
+                <div class="header-top-row">
+                    <div class="title-group">
+                        <div id="flag-container"></div>
+                        <h1 class="country-title" id="page-title">Country Name</h1>
+                    </div>
+                    <button onclick="window.close()" class="back-btn">✕ 關閉</button>
+                </div>
+                
+                <div class="info-badges" id="info-badges-container"></div>
+            </div>
+
+            <!-- Row 2: Language (Independent Row) -->
+            <div id="language-section" class="info-card-row hidden">
+                <div class="info-label">Language</div>
+                
+                <div class="lang-content-wrapper">
+                    <!-- 左側：顯眼的語言標籤 (自動拉伸高度) -->
+                    <div class="lang-name-tag" id="language-name-tag"></div>
+                    
+                    <!-- [結構修改] 右側子容器：包含特殊字符與說明 -->
+                    <div class="lang-right-col">
+                        <!-- 右側上方：置中的特殊字符 -->
+                        <div class="lang-chars-display" id="special-chars-value"></div>
+                        
+                        <!-- 右側下方：語言特性說明 -->
+                        <div class="lang-desc-box hidden" id="language-desc-value"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 3: Street Suffix (Independent Row) -->
+            <div id="suffix-section" class="info-card-row hidden">
+                <div class="info-label">Street Suffixes</div>
+                <div class="info-value" id="suffix-value"></div>
+            </div>
+
+            <!-- Row 4: Camera & Years (Split) -->
+            <div class="split-row">
+                <div id="camera-section" class="info-card-half hidden">
+                    <div class="info-label">Camera Generations</div>
+                    <div class="info-value" id="camera-value"></div>
+                </div>
+                <div id="years-section" class="info-card-half hidden">
+                    <div class="info-label">Coverage Years</div>
+                    <div class="info-value" id="years-value"></div>
+                </div>
+            </div>
+
+            <!-- Features 區塊 -->
+            <div id="group-infrastructure" class="category-group hidden">
+                <div class="category-header">🛣️ Infrastructure</div>
+                <div class="gallery-grid" id="container-infrastructure"></div>
+            </div>
+
+            <div id="group-signs" class="category-group hidden">
+                <div class="category-header">🛑 Signs</div>
+                <div class="gallery-grid" id="container-signs"></div>
+            </div>
+
+            <div id="group-urban" class="category-group hidden">
+                <div class="category-header">🏢 Urban</div>
+                <div class="gallery-grid" id="container-urban"></div>
+            </div>
+
+            <div id="group-nature" class="category-group hidden">
+                <div class="category-header">🌲 Nature</div>
+                <div class="gallery-grid" id="container-nature"></div>
+            </div>
+
+            <div id="group-vehicles" class="category-group hidden">
+                <div class="category-header">🚗 Vehicles</div>
+                <div class="gallery-grid" id="container-vehicles"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox">
+        <img id="lightbox-img" src="" alt="Full size">
+    </div>
+
+    <script src="/static/js/country.js"></script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoGuessr Database Visulizer</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/fonts.css">
+    
+    <!-- 引入 SimpleMaps -->
+    <script src="/static/js/mapdata.js"></script>
+    <script src="/static/js/worldmap.js"></script>
+    <script src="/static/js/main.js"></script>
+</head>
+<body>
+
+<div class="container">
+    
+    <!-- 側邊欄觸發容器 (Hover Trigger) -->
+    <div class="sidebar-hover-trigger">
+        
+        <!-- [新增] 常駐的選單按鈕 (漢堡選單圖示) -->
+        <div class="menu-icon-tab">
+            <div class="hamburger-line"></div>
+            <div class="hamburger-line"></div>
+            <div class="hamburger-line"></div>
+        </div>
+
+        <div class="sidebar">
+            <div class="header">
+                <h2>GeoMaster</h2>
+                <p>Sourse: <a href="https://geohints.com/" target="_blank" style="color:rgb(255, 255, 255);">GeoHints</a>, 
+                                <a href="https://www.plonkit.net/" target="_blank" style="color:rgb(255, 255, 255);">Plonk It</a>,
+                                <a href="https://geomastr.com/" target="_blank" style="color:rgb(255, 255, 255);">GeoMastr</a> </p>
+            </div>
+            
+            <!-- 選單內容區域 -->
+<div id="sidebar-content" class="flyout-sidebar">     
+                <div class="menu-group">
+                    <div class="group-title">ℹ️ Info</div>
+                    <div class="flyout-content">
+                        <label class="feature-item"><input type="radio" name="feature_select" value="CameraGens"><span>Camera Gens</span></label>
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Years"><span>Years</span></label>
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Drivingside"><span>Driving Side</span></label>
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Domains"><span>Domains</span></label>
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Phonenumbers"><span>Phone Numbers</span></label>
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Streetsuffix"><span>Street Suffix</span></label>
+                    </div>
+                </div>
+       
+                <div class="menu-group">
+                    <div class="group-title">🛑 Signs</div>
+                    <div class="flyout-content">
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Signs_stop"><span>Stop</span></label>
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Signs_yield"><span>Yield</span></label>
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Signs_speed"><span>Speed</span></label>
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Signs_chevrons"><span>Chevrons</span></label>
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Signs_pedestrian"><span>Pedestrian</span></label>
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Signs_animalwarning"><span>Animal Warning</span></label>
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Signs_railwaycrossing"><span>Rail Way Crossing</span></label>
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Signs_directions"><span>Directions</span></label>
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Signs_roadnumbering"><span>Road Numbering</span></label>
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Signs_streetnames"><span>Streetnames</span></label>
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Signs_citysigns"><span>Citysigns</span></label>
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Signs_river"><span>River</span></label>
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Signs_busstop"><span>Bus stop</span></label>
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Signs_tramstop"><span>Tram Stop</span></label>
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Signs_tramspeed"><span>Tram speed</span></label>
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Signs_signposts"><span>Sign Posts</span></label>
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Signs_backofsigns"><span>Back of signs</span></label>
+                    </div>
+                </div>
+            
+                <div class="menu-group">
+                    <div class="group-title">🛣️ Infrastructure</div>
+                    <div class="flyout-content">
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Lines"><span>Lines</span></label>
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Sidewalks"><span>Sidewalks</span></label>
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Bollards"><span>Bollards</span></label>
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Trafficlights"><span>Traffic Lights</span></label>
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Utilitypoles"><span>Utility Poles</span></label>
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Postboxes"><span>Postboxes</span></label>
+                    </div>
+                </div>
+            
+                <div class="menu-group">
+                    <div class="group-title">🏢 Urban</div>
+                    <div class="flyout-content">
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Architecture"><span>Architecture</span></label>
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Housenumbers"><span>House Numbers</span></label>
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Licenseplates"><span>License Plates</span></label>
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Flags"><span>Flags</span></label>
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Companies_gasstations"><span>Companies : gasstations</span></label>
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Companies_post"><span>Companies : post</span></label>
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Companies_beer"><span>Companies : beer</span></label>
+                    </div>
+                </div>
+            
+                <div class="menu-group">
+                    <div class="group-title">🌲 Nature</div>
+                    <div class="flyout-content">
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Nature"><span>Nature</span></label>
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Sceneries"><span>Sceneries</span></label>
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Snow"><span>Snow</span></label>
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Rifts"><span>Rifts</span></label>
+                    </div>
+                </div>
+
+                <div class="menu-group">
+                    <div class="group-title">🚗 Vehicles</div>
+                    <div class="flyout-content">
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Googlevehicles_cars"><span>Cars</span></label>
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Followcars"><span>Follow Cars</span></label>
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Googlevehicles_motorcycles"><span>Motorcycles</span></label>
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Googlevehicles_atvs"><span>All-Terrain Vehicles</span></label>
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Googlevehicles_snowmobiles"><span>Snowmobiles</span></label>
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Googlevehicles_trains"><span>Trains</span></label>
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Googlevehicles_cablecars"><span>Cablecars</span></label>
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Googlevehicles_boats"><span>Boats</span></label>
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Googlevehicles_animals"><span>Animals</span></label>
+                        <label class="feature-item"><input type="radio" name="feature_select" value="Googlevehicles_others"><span>Others</span></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 右側地圖 -->
+    <div class="map-wrapper">
+        <div id="map"></div>
+    </div>
+</div>
+
+</body>
+</html>

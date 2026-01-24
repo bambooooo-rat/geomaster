@@ -1,0 +1,466 @@
+:root {
+    /* --- 色彩系統 (Color System) --- */
+    /* 背景色 */
+    --bg-body: #f0f0f0;            /* 頁面大背景 */
+    --bg-sidebar: #f8f9fa;         /* 側邊欄背景 */
+    --bg-white: #ffffff;           /* 卡片/區塊白底 */
+    --bg-hover: #f1f1f1;           /* 通用 Hover 淺灰 */
+    --bg-active: #e3f2fd;          /* 選項選中背景 */
+    --bg-header-dark: #333333;     /* 深色 Header 背景 */
+
+    /* 文字色 */
+    --text-primary: #333333;       /* 主要文字 */
+    --text-secondary: #444444;     /* 次要文字 */
+    --text-light: #ffffff;         /* 反白文字 (Header用) */
+    --text-muted: #888888;         /* 標籤/弱化文字 */
+    --text-placeholder: #bbbbbb;   /* 佔位符或極淡文字 */
+
+    /* 邊框與線條 */
+    --border-color: #dddddd;       /* 通用邊框 */
+    --border-light: #f5f5f5;       /* 淺色分隔線 */
+
+    /* 互動與強調色 */
+    --color-accent: #2196f3;       /* 主強調色 (藍) */
+    --color-accent-dark: #0056b3;  /* 深藍 (Hover用，雖原檔未明確定義，預留) */
+    --color-map-highlight: #ff5722;/* 地圖高亮色 */
+    --color-map-hover: #e64a19;    /* 地圖 Hover 色 */
+    --color-close-hover: #d32f2f;  /* 關閉按鈕警示色 */
+    
+    /* 陰影 (保持原樣，設為變數方便微調) */
+    --shadow-sidebar: 4px 0 15px rgba(0,0,0,0.15);
+    --shadow-card: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+/* =========================================
+   1. 全域設定 & 容器
+   ========================================= */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    font-family: var(--font-main); /* [修改] 引用變數 */
+    overflow: hidden; 
+    background-color: var(--bg-body); /* [修改] 引用變數 */
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+/* =========================================
+   2. 地圖系統 (背景層)
+   ========================================= */
+.map-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden; 
+    background: var(--bg-white); /* [修改] 引用變數 */
+    z-index: 0; 
+}
+
+#map {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    aspect-ratio: 2018 / 863.57;
+}
+
+@media (max-aspect-ratio: 2018/863.57) {
+    #map { height: 100vh; width: auto; }
+}
+@media (min-aspect-ratio: 2018/863.57) {
+    #map { width: 100vw; height: auto; }
+}
+
+/* =========================================
+   3. 左側選單 (滑出式設計) - [整合修改]
+   ========================================= */
+
+.sidebar-hover-trigger {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 20px; 
+    height: 100vh;
+    z-index: 1000; 
+}
+
+.menu-icon-tab {
+    position: absolute;
+    top: 20px; 
+    left: 0;
+    width: 44px;
+    height: 44px;
+    background-color: var(--bg-header-dark); /* [修改] 引用變數 */
+    border-radius: 0 8px 8px 0; 
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    z-index: 1002; 
+    transition: transform 0.2s, opacity 0.3s;
+}
+
+.hamburger-line {
+    width: 20px;
+    height: 3px;
+    background-color: var(--bg-white); /* [修改] 引用變數 */
+    border-radius: 2px;
+}
+
+.sidebar {
+    position: absolute; 
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 280px;
+    
+    background-color: var(--bg-sidebar); /* [修改] 引用變數 */
+    border-right: 1px solid var(--border-color); /* [修改] 引用變數 */
+    box-shadow: var(--shadow-sidebar); /* [修改] 引用變數 */
+    
+    display: flex;
+    flex-direction: column;
+    
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    
+    overflow: visible !important; 
+    z-index: 1003; 
+}
+
+.sidebar-hover-trigger:hover .sidebar {
+    transform: translateX(0);
+}
+
+.sidebar-hover-trigger:hover .menu-icon-tab {
+    opacity: 0; 
+    pointer-events: none;
+}
+
+.sidebar .header {
+    padding: 15px 20px;
+    background: var(--bg-header-dark); /* [修改] 引用變數 */
+    color: var(--text-light); /* [修改] 引用變數 */
+    flex-shrink: 0;
+}
+.sidebar h2 { 
+    margin: 0; 
+    font-size: 1.2rem;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+.sidebar h2:hover {
+    color: var(--text-placeholder); /* [修改] 引用變數 (#bbb) */
+}
+.sidebar p { 
+    margin: 5px 0 0; 
+    font-size: 0.8rem; 
+    opacity: 0.8; 
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+#sidebar-content {
+    flex-grow: 1;
+    overflow: visible; 
+    padding: 0; 
+}
+
+/* =========================================
+   4. 飛出式選單系統 (Flyout Menu)
+   ========================================= */
+.menu-group {
+    position: relative; 
+    border-bottom: 1px solid #e0e0e0; /* 這裡原為 #e0e0e0 與 --border-color 接近，可維持或替換 */
+    background: var(--bg-white); /* [修改] 引用變數 */
+}
+
+.group-title {
+    padding: 15px 20px;
+    cursor: default;
+    font-weight: bold;
+    color: var(--text-primary); /* [修改] 引用變數 */
+    transition: background 0.2s, color 0.2s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.group-title:hover {
+    background-color: var(--bg-hover); /* [修改] 引用變數 */
+}
+
+.menu-group:hover .group-title {
+    background-color: var(--bg-header-dark); /* [修改] 引用變數 */
+    color: var(--text-light); /* [修改] 引用變數 */
+    cursor: pointer;
+}
+
+.menu-group:hover .group-title::after {
+    content: "▶";
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+.flyout-content {
+    display: none;
+    position: absolute;
+    left: 100%; 
+    top: 0;
+    width: 260px;
+    max-height: 100vh;
+    overflow-y: auto;
+    background: var(--bg-white); /* [修改] 引用變數 */
+    border-left: 1px solid var(--border-color); /* [修改] 引用變數 */
+    border-radius: 0 4px 4px 0;
+    box-shadow: 4px 0 10px rgba(0,0,0,0.15);
+    z-index: 101;
+}
+
+@keyframes flyOut {
+    from { opacity: 0; transform: translateX(-15px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.menu-group:hover .flyout-content {
+    display: block;
+    animation: flyOut 0.2s ease-out forwards;
+}
+
+/* =========================================
+   5. 特徵選項按鈕 (Radio Buttons)
+   ========================================= */
+.feature-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--border-light); /* [修改] 引用變數 */
+    background: var(--bg-white); /* [修改] 引用變數 */
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.feature-item:hover { background-color: var(--bg-sidebar); /* [修改] 引用變數 */ }
+
+.feature-item.active {
+    background-color: var(--bg-active); /* [修改] 引用變數 */
+    border-left: 4px solid var(--color-accent); /* [修改] 引用變數 */
+    padding-left: 11px;
+}
+
+.feature-item input { margin-right: 12px; cursor: pointer; }
+.feature-item span { font-size: 14px; color: var(--text-secondary); /* [修改] 引用變數 */ }
+
+/* =========================================
+   6. SimpleMaps Tooltip (地圖上的小預覽)
+   ========================================= */
+.tt_name {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 8px;
+    display: block;
+    color: #000; /* Tooltip 通常保持全黑較清晰 */
+}
+
+.popup-gallery {
+    max-width: 320px;
+    max-height: 350px; 
+    overflow-y: auto;
+    padding-right: 5px;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.popup-img-box {
+    margin-top: 8px;
+    border: 1px solid #eee; /* 暫保留微調色 */
+    padding: 4px;
+    background: var(--bg-white); /* [修改] 引用變數 */
+    border-radius: 4px;
+}
+
+.popup-img-box img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 2px;
+}
+
+.popup-text-content {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text-secondary); /* [修改] 引用變數 */
+    background: #f9f9f9;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #eee;
+    max-width: 320px; 
+    white-space: normal;  
+    overflow-wrap: break-word;
+    word-wrap: break-word;  
+}
+
+/* 修改 .popup-gallery.preview-mode 區塊 */
+
+.popup-gallery.preview-mode {
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 6px; 
+    
+    /* [關鍵] 設定最大高度，JS 會讀取這個數值來決定圖片去留 */
+    max-height: 350px; 
+    width: 100%;
+    
+    /* 確保容器本身不會被撐開 */
+    overflow: hidden; 
+    position: relative;
+}
+
+.popup-img-box.small {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background: transparent;
+    flex-shrink: 0; /* 防止圖片被暴力壓縮 */
+    
+    /* 預設顯示，JS 會在計算後將不需要的設為 none */
+    display: block; 
+}
+
+/* 讓圖片自適應寬度，高度自動 */
+.popup-img-box.small img {
+    width: 100%;
+    height: auto; 
+    max-height: 250px; /* 單張圖片的最大限制，避免一張直圖佔滿全部 */
+    object-fit: contain;
+    display: block;
+    border-radius: 4px;
+}
+
+/* [新增] 用來顯示 "+ X more" 的容器樣式 */
+.more-count-indicator {
+    margin-top: 5px; 
+    font-weight: bold; 
+    color: #333; 
+    text-align: center; 
+    font-size: 12px;
+    width: 100%;
+    padding-bottom: 5px;
+}
+/* =========================================
+   7. 彈出視窗 (Modal)
+   ========================================= */
+.custom-modal-overlay {
+    display: none;
+    position: fixed; 
+    top: 0; left: 0; 
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6); 
+    z-index: 9999; 
+    justify-content: center; 
+    align-items: center;
+    backdrop-filter: blur(2px);
+}
+
+.custom-modal-content {
+    background: var(--bg-white); /* [修改] 引用變數 */
+    width: 90%; 
+    height: 90vh; 
+    max-width: 1400px; 
+    border-radius: 8px;
+    box-shadow: var(--shadow-card); /* [修改] 引用變數 */
+    display: flex; 
+    flex-direction: column;
+    overflow: hidden;
+    animation: modalFadeIn 0.2s ease-out;
+}
+
+@keyframes modalFadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.custom-modal-header {
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+    display: flex; justify-content: space-between; align-items: center;
+    background: var(--bg-sidebar); /* [修改] 引用變數 */
+    flex-shrink: 0;
+}
+.custom-modal-header h3 { margin: 0; font-size: 18px; color: var(--text-primary); /* [修改] 引用變數 */ }
+.custom-modal-close {
+    font-size: 24px; cursor: pointer; color: var(--text-secondary); /* [修改] 引用變數 */
+    line-height: 1;
+    transition: color 0.2s;
+}
+.custom-modal-close:hover { color: var(--color-close-hover); /* [修改] 引用變數 */ }
+
+.custom-modal-body {
+    padding: 20px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex-grow: 1; 
+    background-color: #fdfdfd;
+}
+
+.popup-gallery.full-mode {
+    max-width: none;
+    max-height: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 15px; 
+    padding-bottom: 20px;
+}
+
+.popup-img-box.large {
+    width: 100%; 
+    margin-top: 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+}
+
+.popup-img-box.large:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.popup-img-box.large img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 4px;
+}
