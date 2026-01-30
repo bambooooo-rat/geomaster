@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高雄：歷史與影像的疊合 - 攝影行程</title>
+    <style>
+        /* =========================================
+           1. 變數與基礎設定 (源自 country.css & fonts.css)
+           ========================================= */
+        :root {
+            /* 色彩系統 */
+            --bg-body-profile: #f0f2f5;
+            --bg-white: #ffffff;
+            --bg-light-gray: #f7f9fa;
+            --bg-hover-btn: #d8dadf;
+            --bg-btn: #e4e6eb;
+
+            --text-primary: #333333;
+            --text-title: #1a1a1a;
+            --text-secondary: #555555;
+            --text-muted: #888888;
+            --text-code: #57606a;
+
+            --border-color: #e1e4e8;
+            --border-light: #eeeeee;
+
+            --color-accent-blue: #0969da;
+            --color-accent-red: #d9534f;
+            --color-header-blue: #2c3e50;
+
+            --shadow-card: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-hover: 0 4px 12px rgba(0,0,0,0.1);
+
+            /* 字型設定 */
+            --font-main: "GeoGlobal-Sans", "Microsoft JhengHei", "Segoe UI", Helvetica, Arial, sans-serif;
+            --font-mono: "GeoGlobal-Mono", "SF Mono", "Menlo", "Monaco", "Consolas", monospace;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-main);
+            background-color: var(--bg-body-profile);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* 連結樣式 */
+        a { text-decoration: none; color: inherit; }
+        a:hover { color: var(--color-accent-blue); }
+
+        /* =========================================
+           2. Header 區域樣式
+           ========================================= */
+        .profile-header-card {
+            background: var(--bg-white);
+            padding: 25px 30px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-card);
+            margin-bottom: 20px;
+        }
+
+        .header-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .title-group h1 {
+            font-size: 2.2rem;
+            margin: 0;
+            color: var(--text-title);
+            font-weight: 800;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-top: 5px;
+            display: block;
+        }
+
+        .info-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            padding-top: 15px;
+            margin-top: 15px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .badge-item {
+            display: inline-flex;
+            align-items: center;
+            background: var(--bg-light-gray);
+            padding: 6px 14px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            font-size: 0.95rem;
+            color: #444;
+        }
+
+        /* =========================================
+           3. 每日行程卡片 (Category Group)
+           ========================================= */
+        .day-card {
+            background: var(--bg-white);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 30px; /* 增加間距 */
+        }
+
+        /* Day 標題列 */
+        .day-header-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+            margin-bottom: 20px;
+        }
+
+        .day-tag {
+            background-color: var(--color-header-blue);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .day-title {
+            font-size: 1.5rem;
+            color: var(--text-title);
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .day-intro {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            margin-bottom: 25px;
+            font-style: italic;
+            background-color: #fafbfc;
+            padding: 15px;
+            border-left: 4px solid var(--color-accent-blue);
+            border-radius: 4px;
+        }
+
+        /* =========================================
+           4. 美食區塊 (重用 Suffix Card 樣式)
+           ========================================= */
+        .section-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        /* 餐廳小卡 */
+        .food-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px 16px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+        .food-card:hover {
+            border-color: var(--color-accent-blue);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .food-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--color-header-blue);
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+        .food-desc {
+            font-size: 0.85rem;
+            color: #656d76;
+            margin-bottom: 8px;
+        }
+        .map-link {
+            font-size: 0.75rem;
+            color: var(--color-accent-blue);
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* =========================================
+           5. 攝影任務區塊 (Rephotography)
+           ========================================= */
+        .task-container {
+            background-color: #fcfcfc;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .task-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        .task-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-title);
+        }
+        .task-loc {
+            font-size: 0.9rem;
+            color: var(--text-code);
+            background: #f0f0f0;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+        }
+
+        .task-story {
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        /* 影像對照區 */
+        .photo-compare-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .photo-box {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .photo-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-align: center;
+        }
+
+        /* 圖片佔位符樣式 */
+        .img-placeholder {
+            width: 100%;
+            aspect-ratio: 4/3; /* 4:3 比例 */
+            background-color: #e9ecef;
+            border: 2px dashed #ced4da;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #adb5bd;
+            font-size: 0.9rem;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .img-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .img-placeholder span {
+            padding: 10px;
+            text-align: center;
+        }
+
+        /* 響應式調整 */
+        @media (max-width: 768px) {
+            .photo-compare-row {
+                grid-template-columns: 1fr;
+            }
+            .day-header-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .header-top-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <div class="profile-header-card">
+            <div class="header-top-row">
+                <div class="title-group">
+                    <h1>高雄：歷史與影像的疊合</h1>
+                    <span class="subtitle">Kaohsiung Rephotography Journey: 5-Day Itinerary</span>
+                </div>
+            </div>
+            
+            <div class="info-badges">
+                <div class="badge-item">📍 據點：三民區</div>
+                <div class="badge-item">📅 天數：5 天</div>
+                <div class="badge-item">📷 主題：今昔對照 (Rephotography)</div>
+                <div class="badge-item">🇹🇼 歷史事件：二二八、美麗島、氣爆、白色恐怖</div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-header-row">
+                <div class="day-tag">Day 1</div>
+                <h2 class="day-title">民主的震央與常民的街道 (三民 → 新興)</h2>
+            </div>
+
+            <div class="day-intro">
+                一場關於「日常生活如何瞬間轉變為歷史現場」的探索。從熟悉的三民區出發，走向中山路與中正路交會點——1979年鎮暴部隊與群眾對峙的火圈。重點在於捕捉商業招牌下隱藏的抵抗記憶。
+            </div>
+
+            <div class="section-label">🍜 在地補給 (Food & Culture)</div>
+            <div class="food-grid">
+                <a href="https://maps.app.goo.gl/SefGj9Mr78JUYiQt9" target="_blank" class="food-card">
+                    <div class="food-name">港仔大佬</div>
+                    <div class="food-desc">籠的傳人，道地港式點心</div>
+                </a>
+                <a href="https://maps.app.goo.gl/uN9ekyrLKsUYoRZ66" target="_blank" class="food-card">
+                    <div class="food-name">三民街燒馬蛋</div>
+                    <div class="food-desc">三民市場古早味，酥脆Q彈</div>
+                </a>
+                <a href="https://maps.app.goo.gl/HuzdAzRrmviVunq88" target="_blank" class="food-card">
+                    <div class="food-name">侯記鴨肉飯</div>
+                    <div class="food-desc">鴨油香氣濃郁，切盤必點</div>
+                </a>
+                <a href="https://maps.app.goo.gl/32UAMLAzL7yvNE4C8" target="_blank" class="food-card">
+                    <div class="food-name">上海生煎湯包</div>
+                    <div class="food-desc">熱河街排隊名店，皮薄汁多</div>
+                </a>
+                <a href="https://maps.app.goo.gl/XNYdhse4BjNcgy2R7" target="_blank" class="food-card">
+                    <div class="food-name">老江紅茶牛奶</div>
+                    <div class="food-desc">高雄獨特的早餐與宵夜文化</div>
+                </a>
+            </div>
+
+            <div class="section-label">📷 攝影任務 (Rephotography Tasks)</div>
+            
+            <div class="task-container">
+                <div class="task-header">
+                    <div class="task-title">地點 A：原美麗島雜誌社高雄服務處</div>
+                    <div class="task-loc">新興區中山一路53號</div>
+                </div>
+                <div class="task-story">
+                    這是台灣戰後現代主義街屋的韌性見證。1979年12月10日晚間，這裡被層層警力包圍。請嘗試將當年的黑白新聞照片（群眾推擠、盾牌人牆）疊合在今日的騎樓與招牌上。
+                </div>
+                <div class="photo-compare-row">
+                    <div class="photo-box">
+                        <div class="img-placeholder">
+                            <span>請置入 1979 歷史照片</span>
+                        </div>
+                        <div class="photo-label">1979 歷史現場</div>
+                    </div>
+                    <div class="photo-box">
+                        <div class="img-placeholder">
+                            <span>請置入 現代街景照片</span>
+                        </div>
+                        <div class="photo-label">2026 現代街景</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="task-container">
+                <div class="task-header">
+                    <div class="task-title">地點 B：捷運美麗島站出口 (原大港埔圓環)</div>
+                    <div class="task-loc">中山路/中正路口</div>
+                </div>
+                <div class="task-story">
+                    尋找1979年鎮暴部隊佔領圓環的廣角照片，將黑壓壓的軍警剪影，疊加在今日發著光的「祈禱」捷運出口上。這象徵著今日的便捷與和平，是建立在當年的衝撞之上。
+                </div>
+                <div class="photo-compare-row">
+                    <div class="photo-box">
+                        <div class="img-placeholder">
+                            <span>請置入 鎮暴部隊圓環照片</span>
+                        </div>
+                        <div class="photo-label">1979 鎮暴部隊</div>
+                    </div>
+                    <div class="photo-box">
+                        <div class="img-placeholder">
+                            <span>請置入 美麗島站出口照片</span>
+                        </div>
+                        <div class="photo-label">現代 捷運樞紐</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-header-row">
+                <div class="day-tag">Day 2</div>
+                <h2 class="day-title">港口的彈孔與消失的水文 (鹽埕 → 鼓山)</h2>
+            </div>
+
+            <div class="day-intro">
+                聚焦於權力的具象化與城市的傷痕。鹽埕區曾是二二八事件軍隊鎮壓的起點，以及被加蓋消失的河流（堀江）。利用帝冠式塔樓、教堂尖塔等幾何恆定點，校準1947年與1958年的時空視差。
+            </div>
+
+            <div class="section-label">🍜 在地補給</div>
+            <div class="food-grid">
+                <a href="https://maps.app.goo.gl/Mjs2pDnb4RVSdtfE9" target="_blank" class="food-card">
+                    <div class="food-name">大ㄎㄡ胖碳烤三明治</div>
+                    <div class="food-desc">炭火烤過的吐司香氣</div>
+                </a>
+                <a href="https://maps.app.goo.gl/KeCz2sb3zF4to4NMA" target="_blank" class="food-card">
+                    <div class="food-name">鴨肉珍</div>
+                    <div class="food-desc">切盤鴨肉與肉燥飯，人氣老店</div>
+                </a>
+                <a href="https://maps.app.goo.gl/x1vx26RjfMZu42kp7" target="_blank" class="food-card">
+                    <div class="food-name">阿伯冷凍芋</div>
+                    <div class="food-desc">清涼消暑古早味</div>
+                </a>
+                <a href="https://maps.app.goo.gl/WutEbnd1D1Xp3a8H9" target="_blank" class="food-card">
+                    <div class="food-name">香茗茶行</div>
+                    <div class="food-desc">70年老茶行，鮮奶茶必喝</div>
+                </a>
+                <a href="https://maps.app.goo.gl/MsakvYpxQAZKZHdh9" target="_blank" class="food-card">
+                    <div class="food-name">新濱・駅前</div>
+                    <div class="food-desc">舊三和銀行改建，華麗復古風</div>
+                </a>
+            </div>
+
+            <div class="section-label">📷 攝影任務</div>
+            <div class="task-container">
+                <div class="task-header">
+                    <div class="task-title">地點 A：高雄市立歷史博物館 (原市政府)</div>
+                    <div class="task-loc">鹽埕區中正四路272號</div>
+                </div>
+                <div class="task-story">
+                    1947年3月6日，軍隊從此處開始掃射。利用塔樓作為視覺錨點，將當年軍用卡車停在門口的歷史影像，疊加在今日博物館入口。尋找牆面上保留的彈孔，用特寫鏡頭記錄歷史痕跡。
+                </div>
+                <div class="photo-compare-row">
+                    <div class="photo-box">
+                        <div class="img-placeholder">
+                            <span>請置入 1947 軍隊卡車照片</span>
+                        </div>
+                        <div class="photo-label">1947 二二八現場</div>
+                    </div>
+                    <div class="photo-box">
+                        <div class="img-placeholder">
+                            <span>請置入 歷史博物館現況</span>
+                        </div>
+                        <div class="photo-label">現代 歷史博物館</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="task-container">
+                <div class="task-header">
+                    <div class="task-title">地點 B：鹽埕堀江商場 (大溝頂)</div>
+                    <div class="task-loc">五福四路至必忠街巷弄</div>
+                </div>
+                <div class="task-story">
+                    這裡原是排水渠道。利用遠方的「鹽埕基督長老教會」尖塔對齊，將1958年水溝兩旁違建拆除的景象，疊加在今日的巷弄上，揭示都市水文如何變為商業陸路。
+                </div>
+                <div class="photo-compare-row">
+                    <div class="photo-box">
+                        <div class="img-placeholder">
+                            <span>請置入 1958 大溝頂舊照</span>
+                        </div>
+                        <div class="photo-label">1958 水路時期</div>
+                    </div>
+                    <div class="photo-box">
+                        <div class="img-placeholder">
+                            <span>請置入 現代堀江商場</span>
+                        </div>
+                        <div class="photo-label">現代 商業街區</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-header-row">
+                <div class="day-tag">Day 3</div>
+                <h2 class="day-title">學生的武裝與城鄉的民主連線 (後站 → 左營 → 橋頭)</h2>
+            </div>
+
+            <div class="day-intro">
+                從「武裝抵抗」到「和平示威」的地理路徑。從雄中自衛隊的紅樓記憶，一路騎向橋頭糖廠與老街，探索校園如何成為戰場，以及民主運動如何在城鄉邊界發酵。
+            </div>
+
+            <div class="section-label">🍜 在地補給</div>
+            <div class="food-grid">
+                <a href="https://maps.app.goo.gl/DBUg2cgLtHwo2UA5A" target="_blank" class="food-card">
+                    <div class="food-name">寬來順早餐店</div>
+                    <div class="food-desc">左營果貿，眷村味肉包與鹹豆漿</div>
+                </a>
+                <a href="https://maps.app.goo.gl/pcXH7jcpoAjuBHBX6" target="_blank" class="food-card">
+                    <div class="food-name">西安麵食館</div>
+                    <div class="food-desc">左營特色皮帶麵，口感獨特</div>
+                </a>
+                <a href="https://maps.app.goo.gl/XrnodMEyawyKnrX56" target="_blank" class="food-card">
+                    <div class="food-name">黃家肉燥飯</div>
+                    <div class="food-desc">橋頭必比登推薦，滷汁濃郁</div>
+                </a>
+            </div>
+
+            <div class="section-label">📷 攝影任務</div>
+            <div class="task-container">
+                <div class="task-header">
+                    <div class="task-title">地點 A：高雄中學紅樓</div>
+                    <div class="task-loc">三民區建國三路50號</div>
+                </div>
+                <div class="task-story">
+                    二二八事件中「雄中自衛隊」的據點。利用紅磚拱圈作為網格，將當年學生持槍在窗邊警戒的身影，與今日穿著制服嬉戲的學生疊合，對比青春在不同時代的命運。
+                </div>
+                <div class="photo-compare-row">
+                    <div class="photo-box">
+                        <div class="img-placeholder">
+                            <span>請置入 雄中自衛隊照片</span>
+                        </div>
+                        <div class="photo-label">1947 學生自衛隊</div>
+                    </div>
+                    <div class="photo-box">
+                        <div class="img-placeholder">
+                            <span>請置入 雄中紅樓現況</span>
+                        </div>
+                        <div class="photo-label">現代 校園日常</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="task-container">
+                <div class="task-header">
+                    <div class="task-title">地點 B：橋頭鳳橋宮</div>
+                    <div class="task-loc">橋頭區橋頭路1號</div>
+                </div>
+                <div class="task-story">
+                    1979年橋頭事件是戒嚴令下首次示威。廟宇建築幾乎未變。將當年黨外人士拉白布條遊行的畫面，疊加在今日寧靜的廟埕上，連結台灣民主化的地理路徑。
+                </div>
+                <div class="photo-compare-row">
+                    <div class="photo-box">
+                        <div class="img-placeholder">
+                            <span>請置入 橋頭事件遊行照片</span>
+                        </div>
+                        <div class="photo-label">1979 橋頭事件</div>
+                    </div>
+                    <div class="photo-box">
+                        <div class="img-placeholder">
+                            <span>請置入 鳳橋宮現況</span>
+                        </div>
+                        <div class="photo-label">現代 廟宇廣場</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-header-row">
+                <div class="day-tag">Day 4</div>
+                <h2 class="day-title">看不見的斷層與工業的傷痕 (苓雅 → 前鎮 → 鳳山)</h2>
+            </div>
+
+            <div class="day-intro">
+                視覺衝擊最強烈的一天。凝視當代的工業創傷（氣爆）與白色恐怖時期的幽閉空間。透過攝影，讓平整的柏油路面再次「裂開」，顯現出地下的工業血管。
+            </div>
+
+            <div class="section-label">🍜 在地補給</div>
+            <div class="food-grid">
+                <a href="https://maps.app.goo.gl/cY88otw2MTqtqE66A" target="_blank" class="food-card">
+                    <div class="food-name">老皮川味牛肉麵</div>
+                    <div class="food-desc">鳳山美味，湯頭花椒香</div>
+                </a>
+                <a href="https://maps.app.goo.gl/19pmTKJ6cCtXFRcb9" target="_blank" class="food-card">
+                    <div class="food-name">林天生肉燥飯</div>
+                    <div class="food-desc">鳳山中華夜市，排骨酥湯</div>
+                </a>
+                <a href="https://maps.app.goo.gl/aQoSJw5KfPTHtVW88" target="_blank" class="food-card">
+                    <div class="food-name">厚得福湯包麵食</div>
+                    <div class="food-desc">紅油抄手與捲餅受歡迎</div>
+                </a>
+                <a href="https://maps.app.goo.gl/zJLTST4mNvRgX5h29" target="_blank" class="food-card">
+                    <div class="food-name">苓雅油煎肉圓</div>
+                    <div class="food-desc">皮脆內軟的獨特口感</div>
+                </a>
+            </div>
+
+            <div class="section-label">📷 攝影任務</div>
+            <div class="task-container">
+                <div class="task-header">
+                    <div class="task-title">地點 A：凱旋三路 (氣爆現場)</div>
+                    <div class="task-loc">凱旋三路與二聖/三多路口</div>
+                </div>
+                <div class="task-story">
+                    利用透視法，站在人行道上，將2014年路面崩塌、車輛翻覆的照片，對齊兩側房屋的屋簷線。讓照片中的災難現場「切開」今日平整的馬路，揭示地底下的石化管線風險。
+                </div>
+                <div class="photo-compare-row">
+                    <div class="photo-box">
+                        <div class="img-placeholder">
+                            <span>請置入 2014 氣爆現場照片</span>
+                        </div>
+                        <div class="photo-label">2014 工業創傷</div>
+                    </div>
+                    <div class="photo-box">
+                        <div class="img-placeholder">
+                            <span>請置入 凱旋路現況</span>
+                        </div>
+                        <div class="photo-label">現代 平整路面</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="task-container">
+                <div class="task-header">
+                    <div class="task-title">地點 B：原日本海軍鳳山無線電信所</div>
+                    <div class="task-loc">鳳山區勝利路 (明德訓練班)</div>
+                </div>
+                <div class="task-story">
+                    從日本海軍電台到白色恐怖偵訊室。拍攝光線穿透厚重鐵門的畫面，捕捉空間中的幽閉感與時間的停滯。
+                </div>
+                <div class="photo-compare-row">
+                    <div class="photo-box">
+                        <div class="img-placeholder">
+                            <span>請置入 明德訓練班舊照/內部</span>
+                        </div>
+                        <div class="photo-label">白色恐怖時期</div>
+                    </div>
+                    <div class="photo-box">
+                        <div class="img-placeholder">
+                            <span>請置入 現地廢墟光影</span>
+                        </div>
+                        <div class="photo-label">現代 歷史廢墟</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-header-row">
+                <div class="day-tag">Day 5</div>
+                <h2 class="day-title">海與島的孤寂與重生 (旗津)</h2>
+            </div>
+
+            <div class="day-intro">
+                遠離市區喧囂，穿越過港隧道體驗重工業港口的壓迫感，最終抵達海邊。這裡沒有今昔對照的建築錨點，只有永恆的海岸線與歷史的無奈，進行純粹的地景與心境攝影。
+            </div>
+
+            <div class="section-label">🍜 在地補給</div>
+            <div class="food-grid">
+                <a href="https://maps.app.goo.gl/YWG9KzecjU93RTrW7" target="_blank" class="food-card">
+                    <div class="food-name">海濱海產</div>
+                    <div class="food-desc">中洲在地老店，價格公道</div>
+                </a>
+                <a href="https://maps.app.goo.gl/8ffcR4TqcvvfBsmX8" target="_blank" class="food-card">
+                    <div class="food-name">不一樣赤肉羹</div>
+                    <div class="food-desc">肉羹炸過再煮，口感獨特</div>
+                </a>
+                <a href="https://maps.app.goo.gl/kD3suZihjeVo4eZx7" target="_blank" class="food-card">
+                    <div class="food-name">斗六冰城</div>
+                    <div class="food-desc">旗津傳統枝仔冰與紅茶</div>
+                </a>
+            </div>
+
+            <div class="section-label">📷 攝影任務 (地景與符號)</div>
+            <div class="task-container">
+                <div class="task-header">
+                    <div class="task-title">地點 A：戰爭與和平紀念公園</div>
+                    <div class="task-loc">旗津區旗津二路</div>
+                </div>
+                <div class="task-story">
+                    紀念身不由己的台灣兵。用廣角鏡頭捕捉「個體在歷史洪流中的渺小」。拍攝海風吹拂下的紀念碑，象徵無聲的吶喊。
+                </div>
+                <div class="photo-compare-row">
+                    <div class="photo-box">
+                        <div class="img-placeholder">
+                            <span>請置入 紀念公園廣角</span>
+                        </div>
+                        <div class="photo-label">地景：孤寂</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="task-container">
+                <div class="task-header">
+                    <div class="task-title">地點 B：旗後砲台與星空隧道外礁岩</div>
+                    <div class="task-loc">旗後山</div>
+                </div>
+                <div class="task-story">
+                    從清朝砲台俯瞰今日繁忙高雄港，尋找牆垣框景。在隧道外岩岸，利用慢快門拍攝海浪流動，對比堅硬礁岩，象徵時間流逝與地景永恆。
+                </div>
+                <div class="photo-compare-row">
+                    <div class="photo-box">
+                        <div class="img-placeholder">
+                            <span>請置入 砲台俯瞰/框景</span>
+                        </div>
+                        <div class="photo-label">視角：大船入港</div>
+                    </div>
+                    <div class="photo-box">
+                        <div class="img-placeholder">
+                            <span>請置入 慢快門海浪礁岩</span>
+                        </div>
+                        <div class="photo-label">技法：時間流動</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
